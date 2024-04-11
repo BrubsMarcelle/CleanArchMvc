@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace CleanArchMvc.Domain.Validation
 {
-    public class DomainExecptionValidation : Exception
+    public class DomainExceptionValidation : Exception
     {
-        public DomainExecptionValidation(string error) : base(error)
+        public DomainExceptionValidation(string error) : base(error)
         {
 
         }
         public static void When(bool hasError, string error)
         {
             if (hasError)
-                throw new DomainExecptionValidation(error);
+                throw new DomainExceptionValidation(error);
         }
     }
 }

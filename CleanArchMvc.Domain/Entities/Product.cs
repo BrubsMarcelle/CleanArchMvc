@@ -17,7 +17,7 @@ namespace CleanArchMvc.Domain.Entities
 
         public Product(int id,string name, string description, decimal price, int stock, string image)
         {
-            DomainExecptionValidation.When(id < 0, "Invalid Id value");
+            DomainExceptionValidation.When(id < 0, "Invalid Id value");
             Id = id;
             ValidateDomain(name, description, price, stock, image);
         }
@@ -30,17 +30,17 @@ namespace CleanArchMvc.Domain.Entities
 
         private void ValidateDomain(string name, string description, decimal price, int stock, string image)
         {
-            DomainExecptionValidation.When(string.IsNullOrEmpty(name), "Invalid name.Name is required");
-            DomainExecptionValidation.When(name.Length < 3, "Invalid name, too short, minimum 3 characters");
+            DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Invalid name.Name is required");
+            DomainExceptionValidation.When(name.Length < 3, "Invalid name, too short, minimum 3 characters");
 
-            DomainExecptionValidation.When(string.IsNullOrEmpty(description), "Invalid name.Description is required");
-            DomainExecptionValidation.When(description.Length < 5, "Invalid description, too short, minimum 5 characters");
+            DomainExceptionValidation.When(string.IsNullOrEmpty(description), "Invalid name.Description is required");
+            DomainExceptionValidation.When(description.Length < 5, "Invalid description, too short, minimum 5 characters");
 
-            DomainExecptionValidation.When(price < 0, "Invalid price value");
+            DomainExceptionValidation.When(price < 0, "Invalid price value");
 
-            DomainExecptionValidation.When(stock < 0, "Invalid stock value");
+            DomainExceptionValidation.When(stock < 0, "Invalid stock value");
 
-            DomainExecptionValidation.When(image.Length < 250, "Invalid image name, too long, maximum 250 characters");
+            DomainExceptionValidation.When(image.Length < 250, "Invalid image name, too long, maximum 250 characters");
 
             Name = name;
             Description = description;
