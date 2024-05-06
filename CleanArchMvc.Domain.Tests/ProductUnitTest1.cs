@@ -7,13 +7,14 @@ namespace CleanArchMvc.Domain.Tests
 {
     public class ProductUnitTest1
     {
-        //[Fact (DisplayName = "Create Product Valid Parameters")]
-        //public void CreateProduct_WithValidParameters_ResultObjectValidState()
-        //{
-        //    Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "Image");
-        //    action.Should()
-        //        .NotThrow<CleanArchMvc.Domain.Validation.DomainExceptionValidation>();
-        //}
+        [Fact(DisplayName = "Create Product Valid Parameters")]
+        public void CreateProduct_WithValidParameters_ResultObjectValidState()
+        {
+            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "Image");
+            action.Should()
+                .NotThrow<CleanArchMvc.Domain.Validation.DomainExceptionValidation>();
+        }
+
         [Fact(DisplayName = "Create Product Negative Id Value")]
         public void CreateProduct_NegativeIdValue_DomainExceptionInvalidId()
         {
@@ -22,6 +23,7 @@ namespace CleanArchMvc.Domain.Tests
                 .Throw<CleanArchMvc.Domain.Validation.DomainExceptionValidation>()
                 .WithMessage("Invalid Id value");
         }
+
         [Fact(DisplayName = "Create Product Short Name Value")]
         public void CreateProduct_ShortNameValue_DomainExceptionInvalidId()
         {
@@ -30,28 +32,38 @@ namespace CleanArchMvc.Domain.Tests
                 .Throw<CleanArchMvc.Domain.Validation.DomainExceptionValidation>()
                 .WithMessage("Invalid name, too short, minimum 3 characters");
         }
+
         [Fact(DisplayName = "Create Product Long Image Name Value")]
         public void CreateProduct_LongImageName_DomainExceptionInvalidId()
         {
             Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 
-                99, "Product Image tooooooooooooooooooooooooooooooooooooooooooooooo longggggggggggggggggggggggggggggggggggggggggggggggg");
+                99, "Producttttttttttttttttt Imageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee toooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo longgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg");
             action.Should()
                 .Throw<CleanArchMvc.Domain.Validation.DomainExceptionValidation>()
                 .WithMessage("Invalid image name, too long, maximum 250 characters");
         }
-        //[Fact(DisplayName = "Create Product Empty Image Name Value")]
-        //public void CreateProduct_WithEmptyImageName_NoDomainException()
-        //{
-        //    Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "");
-        //    action.Should()
-        //        .NotThrow<CleanArchMvc.Domain.Validation.DomainExceptionValidation>();
-        //}
+
+        [Fact(DisplayName = "Create Product Empty Image Name Value")]
+        public void CreateProduct_WithEmptyImageName_NoDomainException()
+        {
+            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, "");
+            action.Should()
+                .NotThrow<CleanArchMvc.Domain.Validation.DomainExceptionValidation>();
+        }
+
         [Fact(DisplayName = "Create Product Null Image Name Value")]
         public void CreateProduct_WithNullImageName_NoDomainExceptionInvalidId()
         {
             Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, null);
             action.Should()
                 .NotThrow<CleanArchMvc.Domain.Validation.DomainExceptionValidation>();
+        }
+
+        [Fact(DisplayName = "Create product not reference exception in image name null")]
+        public void CreateProduct_WithNullImageName_NotNullReferenceException()
+        {
+            Action action = () => new Product(1, "Product Name", "Product Description", 9.99m, 99, null);
+            action.Should().NotThrow<NullReferenceException>();
         }
 
         [Fact (DisplayName ="Create Product Invalid Prive Value")]
